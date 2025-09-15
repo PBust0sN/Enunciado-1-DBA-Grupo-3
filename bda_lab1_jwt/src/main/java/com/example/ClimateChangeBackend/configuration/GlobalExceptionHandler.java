@@ -1,6 +1,6 @@
-package com.example.bda_lab1.configuration;
+package com.example.ClimateChangeBackend.configuration;
 
-import com.example.bda_lab1.dtos.MessageResponse;
+import com.example.ClimateChangeBackend.dtos.MessageResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

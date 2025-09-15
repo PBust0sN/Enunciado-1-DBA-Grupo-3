@@ -1,4 +1,4 @@
-package com.example.bda_lab1.security;
+package com.example.ClimateChangeBackend.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;

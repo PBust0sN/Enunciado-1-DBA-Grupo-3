@@ -1,13 +1,13 @@
-package com.example.bda_lab1;
+package com.example.ClimateChangeBackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BdaLab1Application {
+public class ClimateChangeBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BdaLab1Application.class, args);
+		SpringApplication.run(ClimateChangeBackendApplication.class, args);
 	}
 
 }

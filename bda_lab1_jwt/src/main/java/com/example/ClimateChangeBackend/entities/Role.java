@@ -1,4 +1,4 @@
-package com.example.bda_lab1.entities;
+package com.example.ClimateChangeBackend.entities;
 
 public enum Role {
     ROLE_EMPLOYEE,

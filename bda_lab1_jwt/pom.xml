@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>bda_lab1</artifactId>
+	<artifactId>ClimateChangeBackend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>bda_lab1</name>
+	<name>ClimateChangeBackend</name>
 	<description>BDA Project LAB1</description>
 	<url/>
 	<licenses>

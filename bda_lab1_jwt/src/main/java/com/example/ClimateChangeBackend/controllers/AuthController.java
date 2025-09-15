@@ -1,15 +1,15 @@
-package com.example.bda_lab1.controllers;
+package com.example.ClimateChangeBackend.controllers;
 
 
-import com.example.bda_lab1.dtos.LoginRequest;
-import com.example.bda_lab1.dtos.MessageResponse;
-import com.example.bda_lab1.dtos.RegisterRequest;
-import com.example.bda_lab1.dtos.TokenRefreshResponse;
-import com.example.bda_lab1.entities.UserEntity;
-import com.example.bda_lab1.security.JwtUtil;
-import com.example.bda_lab1.security.services.CustomUserDetails;
-import com.example.bda_lab1.security.services.RefreshTokenService;
-import com.example.bda_lab1.services.UserService;
+import com.example.ClimateChangeBackend.dtos.LoginRequest;
+import com.example.ClimateChangeBackend.dtos.MessageResponse;
+import com.example.ClimateChangeBackend.dtos.RegisterRequest;
+import com.example.ClimateChangeBackend.dtos.TokenRefreshResponse;
+import com.example.ClimateChangeBackend.entities.UserEntity;
+import com.example.ClimateChangeBackend.security.JwtUtil;
+import com.example.ClimateChangeBackend.security.services.CustomUserDetails;
+import com.example.ClimateChangeBackend.security.services.RefreshTokenService;
+import com.example.ClimateChangeBackend.services.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

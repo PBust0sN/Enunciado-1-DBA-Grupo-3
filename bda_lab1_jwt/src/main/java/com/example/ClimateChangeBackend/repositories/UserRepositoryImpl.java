@@ -1,6 +1,6 @@
-package com.example.bda_lab1.repositories;
+package com.example.ClimateChangeBackend.repositories;
 
-import com.example.bda_lab1.entities.UserEntity;
+import com.example.ClimateChangeBackend.entities.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

@@ -1,4 +1,4 @@
-package com.example.bda_lab1.dtos;
+package com.example.ClimateChangeBackend.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

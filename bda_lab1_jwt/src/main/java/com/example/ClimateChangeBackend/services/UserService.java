@@ -1,9 +1,9 @@
-package com.example.bda_lab1.services;
+package com.example.ClimateChangeBackend.services;
 
-import com.example.bda_lab1.dtos.RegisterRequest;
-import com.example.bda_lab1.entities.Role;
-import com.example.bda_lab1.entities.UserEntity;
-import com.example.bda_lab1.repositories.UserRepository;
+import com.example.ClimateChangeBackend.dtos.RegisterRequest;
+import com.example.ClimateChangeBackend.entities.Role;
+import com.example.ClimateChangeBackend.entities.UserEntity;
+import com.example.ClimateChangeBackend.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

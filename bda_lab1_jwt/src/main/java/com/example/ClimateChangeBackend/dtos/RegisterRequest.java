@@ -1,6 +1,6 @@
-package com.example.bda_lab1.dtos;
+package com.example.ClimateChangeBackend.dtos;
 
-import com.example.bda_lab1.entities.Role;
+import com.example.ClimateChangeBackend.entities.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +11,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import static com.example.bda_lab1.entities.Role.ROLE_EMPLOYEE;
+import static com.example.ClimateChangeBackend.entities.Role.ROLE_EMPLOYEE;
 
 @Data
 @Builder

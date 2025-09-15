@@ -1,8 +1,8 @@
-package com.example.bda_lab1.security.services;
+package com.example.ClimateChangeBackend.security.services;
 
 
-import com.example.bda_lab1.entities.UserEntity;
-import com.example.bda_lab1.repositories.UserRepository;
+import com.example.ClimateChangeBackend.entities.UserEntity;
+import com.example.ClimateChangeBackend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

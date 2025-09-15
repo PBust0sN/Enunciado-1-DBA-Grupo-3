@@ -1,7 +1,7 @@
-package com.example.bda_lab1.security;
+package com.example.ClimateChangeBackend.security;
 
 
-import com.example.bda_lab1.security.services.CustomUserDetails;
+import com.example.ClimateChangeBackend.security.services.CustomUserDetails;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;

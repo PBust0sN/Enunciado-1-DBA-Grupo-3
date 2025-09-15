@@ -1,9 +1,9 @@
-package com.example.bda_lab1.security.services;
+package com.example.ClimateChangeBackend.security.services;
 
 
 
-import com.example.bda_lab1.entities.Role;
-import com.example.bda_lab1.entities.UserEntity;
+import com.example.ClimateChangeBackend.entities.Role;
+import com.example.ClimateChangeBackend.entities.UserEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

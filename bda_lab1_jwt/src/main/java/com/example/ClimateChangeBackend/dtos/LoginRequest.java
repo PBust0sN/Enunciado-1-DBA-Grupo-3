@@ -1,4 +1,4 @@
-package com.example.bda_lab1.dtos;
+package com.example.ClimateChangeBackend.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

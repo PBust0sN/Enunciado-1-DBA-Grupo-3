@@ -1,4 +1,4 @@
-package com.example.bda_lab1.security;
+package com.example.ClimateChangeBackend.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

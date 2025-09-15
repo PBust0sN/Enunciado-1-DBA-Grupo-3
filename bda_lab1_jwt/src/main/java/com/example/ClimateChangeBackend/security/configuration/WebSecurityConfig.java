@@ -1,9 +1,9 @@
-package com.example.bda_lab1.security.configuration;
+package com.example.ClimateChangeBackend.security.configuration;
 
 
-import com.example.bda_lab1.security.AuthEntryPointJwt;
-import com.example.bda_lab1.security.AuthTokenFilter;
-import com.example.bda_lab1.security.services.CustomUserDetailsService;
+import com.example.ClimateChangeBackend.security.AuthEntryPointJwt;
+import com.example.ClimateChangeBackend.security.AuthTokenFilter;
+import com.example.ClimateChangeBackend.security.services.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
