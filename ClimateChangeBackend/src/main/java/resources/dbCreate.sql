@@ -10,3 +10,11 @@ CREATE TABLE IF NOT EXISTS users (
     refresh_token_expiration BIGINT,
     role VARCHAR(50) NOT NULL
     );
+
+CREATE TABLE IF NOT EXISTS measurements (
+    id_measurement SERIAL PRIMARY KEY,
+    value_measurement DOUBLE NOT NULL,
+    date_measurement timestamp with time zone NOT NULL ,
+    FOREIGN KEY (id_points_measurements) REFERENCES points_measurements(id_points_measurements),
+    FOREIGN KEY (id_dataset) REFERENCES datasets(id_dataset)
+    );
