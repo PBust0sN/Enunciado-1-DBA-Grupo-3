@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @AllArgsConstructor(onConstructor_ = @Autowired)
 @RestController
-@RequestMapping("/measurements")
+@RequestMapping("/api/v1/measurements")
 public class MeasurementController {
 
     private MeasurementService measurementService;
