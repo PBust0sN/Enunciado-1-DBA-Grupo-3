@@ -46,4 +46,10 @@ public class MeasurePointsController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/getLessThan50/{lat}/{lon}")
+    public ResponseEntity<List<Optional<MeasurePointsEntity>>> getLessThan50(@PathVariable("lat") double lat, @PathVariable("lon") double lon){
+        List<Optional<MeasurePointsEntity>> measurePoints = measurePointsService.getPointsLessThan50(lat, lon);
+        return ResponseEntity.ok().body(measurePoints);
+    }
 }

@@ -12,4 +12,7 @@ public interface MeasurePointsRepository {
     List<Optional<MeasurePointsEntity>> findAll();
     MeasurePointsEntity save(MeasurePointsEntity measurePointsEntity);
     int update(MeasurePointsEntity  measurePointsEntity);
+    Optional<MeasurePointsEntity> findByLatitudeAndLongitude(double lat, double lon);
+
+    List<Optional<MeasurePointsEntity>> getPointsLessThan50ByLatitudeAndLongitude(double latitude, double longitude);
 }
