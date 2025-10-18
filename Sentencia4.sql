@@ -4,16 +4,19 @@
 
 
 SELECT
-    DATE(date_measurement) AS fecha,
-    MAX(value_measurement) AS temperatura_maxima
+    DATE(m.date_measurement) AS fecha,
+    MAX(m.value_measurement) AS temperatura_maxima
 FROM
-    measurements
+    measurements m
+JOIN
+    measure_points p ON m.id_measure_points = p.id_measure_points
 WHERE
--- datos de los ultimos 365 dias a partir de la llamada
-    date_measurement >= NOW() - INTERVAL '1 year'
+    p.sensor_type = 'Temperatura'
+    -- últimos 365 días desde la consulta
+    AND m.date_measurement >= NOW() - INTERVAL '1 year'
 GROUP BY
-    DATE(date_measurement)
+    DATE(m.date_measurement)
 HAVING
-    MAX(value_measurement) > 35
+    MAX(m.value_measurement) > 35
 ORDER BY
     fecha;

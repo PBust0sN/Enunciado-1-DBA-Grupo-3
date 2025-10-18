@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -51,4 +53,27 @@ public class MeasurementRepositoryImpl implements MeasurementRepository {
         return jdbcTemplate.update(sql, id);
     }
 
+    @Override
+    public List<Map<String, Object>> extremeEventDetection() {
+        String sql = """
+            SELECT
+                DATE(m.date_measurement) AS fecha,
+                MAX(m.value_measurement) AS temperatura_maxima
+            FROM
+                measurements m
+            JOIN
+                measure_points p ON m.id_measure_points = p.id_measure_points
+            WHERE
+                p.sensor_type = 'Temperatura'
+                AND m.date_measurement >= NOW() - INTERVAL '1 year'
+            GROUP BY
+                DATE(m.date_measurement)
+            HAVING
+                MAX(m.value_measurement) > 35
+            ORDER BY
+                fecha;
+            """;
+
+        return jdbcTemplate.queryForList(sql);
+    }
 }

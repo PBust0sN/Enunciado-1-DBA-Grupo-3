@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @AllArgsConstructor(onConstructor_ = @Autowired)
@@ -21,6 +23,11 @@ public class MeasurementController {
     public ResponseEntity<MeasurementEntity> getMeasurementById(@PathVariable long id) {
         Optional<MeasurementEntity> measurement = measurementService.getMeasurementById(id);
         return measurement.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/extreme")
+    public List<Map<String, Object>> extremeEventDetection() {
+        return measurementService.extremeEventDetection();
     }
 
     @PutMapping("/update-measurement/{id}")
