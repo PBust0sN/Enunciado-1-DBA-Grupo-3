@@ -94,3 +94,76 @@ de dataset. El procedimiento debe calcular el promedio semanal de las
 mediciones y almacenarlo en una tabla de resumen, llenando los días sin
 datos con el promedio semanal.
  */
+
+CREATE OR REPLACE FUNCTION interpolar_datos_semanales(p_id_dataset BIGINT)
+    RETURNS TABLE(
+                     id_measure_points BIGINT,
+                     week_start DATE,
+                     week_end DATE,
+                     avg_value DOUBLE PRECISION
+                 ) AS $$
+DECLARE
+    rec RECORD;
+    semana_inicio DATE;
+    semana_fin DATE;
+    rango_inicio DATE;
+    rango_fin DATE;
+    avg_semana DOUBLE PRECISION;
+    dias_con_datos INT;
+    dias_sin_datos INT;
+BEGIN
+    -- Iterar por cada punto de medición del dataset
+    FOR rec IN
+        SELECT DISTINCT m.id_measure_points
+        FROM measurements m
+        WHERE m.id_dataset = p_id_dataset
+        LOOP
+            -- Rango total de fechas del dataset para este punto
+            SELECT MIN(m.date_measurement)::date, MAX(m.date_measurement)::date
+            INTO rango_inicio, rango_fin
+            FROM measurements m
+            WHERE m.id_measure_points = rec.id_measure_points
+              AND m.id_dataset = p_id_dataset;
+
+            semana_inicio := rango_inicio;
+
+            -- Recorremos las semanas dentro del rango
+            WHILE semana_inicio <= rango_fin LOOP
+                    semana_fin := semana_inicio + INTERVAL '6 days';
+
+                    -- Promedio de la semana (solo días con datos)
+                    SELECT AVG(m.value_measurement), COUNT(DISTINCT m.date_measurement::date)
+                    INTO avg_semana, dias_con_datos
+                    FROM measurements m
+                    WHERE m.id_measure_points = rec.id_measure_points
+                      AND m.id_dataset = p_id_dataset
+                      AND m.date_measurement::date BETWEEN semana_inicio AND semana_fin;
+
+                    -- Si no hay datos en esa semana, asignamos 0
+                    IF avg_semana IS NULL THEN
+                        avg_semana := 0;
+                        dias_con_datos := 0;
+                    END IF;
+
+                    -- Días sin datos
+                    dias_sin_datos := 7 - dias_con_datos;
+
+                    -- Interpolación: los días sin datos cuentan con el promedio semanal
+                    -- (el promedio de la semana sigue siendo el mismo)
+                    avg_semana := avg_semana;
+
+                    -- Retornar fila
+                    id_measure_points := rec.id_measure_points;
+                    week_start := semana_inicio;
+                    week_end := semana_fin;
+                    avg_value := avg_semana;
+
+                    RETURN NEXT;
+
+                    -- Avanzar a la siguiente semana
+                    semana_inicio := semana_inicio + INTERVAL '7 days';
+                END LOOP;
+        END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+

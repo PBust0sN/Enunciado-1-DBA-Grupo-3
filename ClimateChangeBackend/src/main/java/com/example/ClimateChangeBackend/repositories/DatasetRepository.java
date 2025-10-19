@@ -1,5 +1,6 @@
 package com.example.ClimateChangeBackend.repositories;
 
+import com.example.ClimateChangeBackend.dtos.InterpolarDatosSemDTO;
 import com.example.ClimateChangeBackend.entities.DatasetEntity;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +13,5 @@ public interface DatasetRepository {
     Optional <DatasetEntity> findById(Long id);
     Optional <DatasetEntity> findByName(String nameDataset);
     DatasetEntity save(DatasetEntity datasetEntity);
-
+    List<InterpolarDatosSemDTO> interpolar_datos_semanales(Long id_dataset);
 }

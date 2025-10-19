@@ -1,5 +1,7 @@
 package com.example.ClimateChangeBackend.repositories;
 
+import com.example.ClimateChangeBackend.dtos.AnomaliaDTO;
+import com.example.ClimateChangeBackend.dtos.InterpolarDatosSemDTO;
 import com.example.ClimateChangeBackend.entities.DatasetEntity;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -106,5 +108,26 @@ public class DatasetRepositoryImpl implements DatasetRepository {
         return datasetEntity;
     }
 
+    @Override
+    public List<InterpolarDatosSemDTO> interpolar_datos_semanales(Long id_dataset) {
+        String sql = """
+            SELECT id_measure_points, week_start, week_end, avg_value FROM interpolar_datos_semanales(?) ORDER BY id_measure_points, week_start """;
 
+        try {
+            return jdbcTemplate.query(
+                    sql,
+                    new Object[]{id_dataset},
+                    (rs, rowNum) -> {
+                        InterpolarDatosSemDTO dto = new InterpolarDatosSemDTO();
+                        dto.setIdMeasurePoints(rs.getLong("id_measure_points"));
+                        dto.setWeekStart(rs.getDate("week_start"));
+                        dto.setWeekEnd(rs.getDate("week_end"));
+                        dto.setAvgValue(rs.getDouble("avg_value"));
+                        return dto;
+                    }
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return List.of(); // devuelve lista vacía en vez de null
+        }
+    }
 }
