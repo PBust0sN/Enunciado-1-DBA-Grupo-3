@@ -1,6 +1,7 @@
 package com.example.ClimateChangeBackend.services;
 
 import com.example.ClimateChangeBackend.dtos.DatasetRequest;
+import com.example.ClimateChangeBackend.dtos.InterpolarDatosSemDTO;
 import com.example.ClimateChangeBackend.entities.DatasetEntity;
 import com.example.ClimateChangeBackend.entities.UserEntity;
 import com.example.ClimateChangeBackend.dtos.RegisterRequest;
@@ -32,5 +33,9 @@ public class Datasetservice {
                 .dateAutorizationDataset(datasetRequest.getDateAutorization())
                 .build();
         datasetRepository.save(datasetEntity);
+    }
+
+    public List<InterpolarDatosSemDTO> interpolar_datos_semanales(Long id_dataset){
+        return  datasetRepository.interpolar_datos_semanales(id_dataset);
     }
 }
