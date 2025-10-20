@@ -217,8 +217,6 @@ INSERT INTO measurements (value_measurement, date_measurement, id_measure_points
 (3.60, '2025-06-18 12:45:00+00', 15, 5);
 
 
-DROP FUNCTION get_aggregated_measurements(bigint,timestamp without time zone,timestamp without time zone)
-
 -- Sentencia 6:
 CREATE OR REPLACE FUNCTION get_aggregated_measurements(
     p_id_dataset BIGINT,
