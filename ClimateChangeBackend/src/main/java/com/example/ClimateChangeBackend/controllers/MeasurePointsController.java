@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequestMapping("/api/v1/measurePoints")
 public class MeasurePointsController {
     private MeasurePointsService  measurePointsService;
-
+    
     @GetMapping("/get/{id}")
     public ResponseEntity<Optional<MeasurePointsEntity>> findById(@PathVariable("id") Long id){
         Optional<MeasurePointsEntity>  measurePointsEntity = measurePointsService.findById(id);
@@ -26,8 +26,9 @@ public class MeasurePointsController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Optional<MeasurePointsEntity>>> getAll(){
-        List<Optional<MeasurePointsEntity>> measurePointsEntities = measurePointsService.findAll();
+    @PreAuthorize("hasAuthority('ROLE_EMPLOYEE')")
+    public ResponseEntity<List<MeasurePointsEntity>> getAll(){
+        List<MeasurePointsEntity> measurePointsEntities = measurePointsService.findAll();
         return ResponseEntity.ok().body(measurePointsEntities);
     }
 
@@ -57,5 +58,15 @@ public class MeasurePointsController {
     public ResponseEntity<List<?>> getPointsWithoutGeoreference() {
         List<?> pointsWithoutGeoreference = measurePointsService.findPointsWithoutGeoreference();
         return ResponseEntity.ok().body(pointsWithoutGeoreference);
+    @GetMapping("/getByLatLon/{lat}{lon}")
+    public ResponseEntity<MeasurePointsEntity> getByLatLon(@PathVariable("lat") double lat,  @PathVariable("lon") double lon){
+        Optional<MeasurePointsEntity> point = measurePointsService.getMeasurePointByLatitudAndLongitud(lat,lon);
+        return ResponseEntity.ok().body(point.get());
+    }
+
+    @GetMapping("/getLessThan50/{lat}/{lon}")
+    public ResponseEntity<List<MeasurePointsEntity>> getLessThan50(@PathVariable("lat") double lat, @PathVariable("lon") double lon){
+        List<MeasurePointsEntity> measurePoints = measurePointsService.getPointsLessThan50(lat, lon);
+        return ResponseEntity.ok().body(measurePoints);
     }
 }
