@@ -16,7 +16,8 @@ import java.util.Optional;
 @AllArgsConstructor(onConstructor_ = @Autowired)
 @RestController
 @RequestMapping("/api/v1/measurePoints")
-public class MeasurePointsController {
+@CrossOrigin("*")
+public class    MeasurePointsController {
     private MeasurePointsService  measurePointsService;
     
     @GetMapping("/get/{id}")
@@ -60,7 +61,7 @@ public class MeasurePointsController {
         return ResponseEntity.ok().body(pointsWithoutGeoreference);
     }
 
-    @GetMapping("/getByLatLon/{lat}{lon}")
+    @GetMapping("/getByLatLon/{lat}/{lon}")
     public ResponseEntity<MeasurePointsEntity> getByLatLon(@PathVariable("lat") double lat,  @PathVariable("lon") double lon){
         Optional<MeasurePointsEntity> point = measurePointsService.getMeasurePointByLatitudAndLongitud(lat,lon);
         return ResponseEntity.ok().body(point.get());
