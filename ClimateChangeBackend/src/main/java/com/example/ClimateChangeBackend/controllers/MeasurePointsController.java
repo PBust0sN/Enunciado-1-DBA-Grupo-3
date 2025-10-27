@@ -1,5 +1,6 @@
 package com.example.ClimateChangeBackend.controllers;
 
+import com.example.ClimateChangeBackend.dtos.DistancePointsDTO;
 import com.example.ClimateChangeBackend.dtos.MeasurePointRequest;
 import com.example.ClimateChangeBackend.entities.MeasurePointsEntity;
 import com.example.ClimateChangeBackend.services.MeasurePointsService;
@@ -16,7 +17,8 @@ import java.util.Optional;
 @AllArgsConstructor(onConstructor_ = @Autowired)
 @RestController
 @RequestMapping("/api/v1/measurePoints")
-public class MeasurePointsController {
+@CrossOrigin("*")
+public class    MeasurePointsController {
     private MeasurePointsService  measurePointsService;
     
     @GetMapping("/get/{id}")
@@ -60,15 +62,15 @@ public class MeasurePointsController {
         return ResponseEntity.ok().body(pointsWithoutGeoreference);
     }
 
-    @GetMapping("/getByLatLon/{lat}{lon}")
+    @GetMapping("/getByLatLon/{lat}/{lon}")
     public ResponseEntity<MeasurePointsEntity> getByLatLon(@PathVariable("lat") double lat,  @PathVariable("lon") double lon){
         Optional<MeasurePointsEntity> point = measurePointsService.getMeasurePointByLatitudAndLongitud(lat,lon);
         return ResponseEntity.ok().body(point.get());
     }
 
     @GetMapping("/getLessThan50/{lat}/{lon}")
-    public ResponseEntity<List<MeasurePointsEntity>> getLessThan50(@PathVariable("lat") double lat, @PathVariable("lon") double lon){
-        List<MeasurePointsEntity> measurePoints = measurePointsService.getPointsLessThan50(lat, lon);
+    public ResponseEntity<List<DistancePointsDTO>> getLessThan50(@PathVariable("lat") double lat, @PathVariable("lon") double lon){
+        List<DistancePointsDTO> measurePoints = measurePointsService.getPointsLessThan50(lat, lon);
         return ResponseEntity.ok().body(measurePoints);
     }
 }

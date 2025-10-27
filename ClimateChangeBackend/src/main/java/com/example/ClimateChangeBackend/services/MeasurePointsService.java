@@ -1,5 +1,6 @@
 package com.example.ClimateChangeBackend.services;
 
+import com.example.ClimateChangeBackend.dtos.DistancePointsDTO;
 import com.example.ClimateChangeBackend.dtos.MeasurePointRequest;
 import com.example.ClimateChangeBackend.dtos.PointVariationDTO;
 import com.example.ClimateChangeBackend.dtos.PointWithoutGeorefDTO;
@@ -28,8 +29,8 @@ public class MeasurePointsService {
 
     public MeasurePointsEntity save(MeasurePointRequest measurePointRequest) {
         MeasurePointsEntity measurePointsEntity = MeasurePointsEntity.builder()
-                .latitud(measurePointRequest.getLatitud())
-                .longitud(measurePointRequest.getLongitud())
+                .latitud(Double.valueOf(measurePointRequest.getLatitud()))
+                .longitud(Double.valueOf(measurePointRequest.getLongitud()))
                 .sensorType(measurePointRequest.getSensorType())
                 .build();
         return measurePointsRepository.save(measurePointsEntity);
@@ -37,8 +38,8 @@ public class MeasurePointsService {
 
     public int update(MeasurePointRequest measurePointRequest) {
         MeasurePointsEntity measurePointsEntity = MeasurePointsEntity.builder()
-                .latitud(measurePointRequest.getLatitud())
-                .longitud(measurePointRequest.getLongitud())
+                .latitud(Double.valueOf(measurePointRequest.getLatitud()))
+                .longitud(Double.valueOf(measurePointRequest.getLongitud()))
                 .sensorType(measurePointRequest.getSensorType())
                 .build();
         return measurePointsRepository.update(measurePointsEntity);
@@ -72,7 +73,7 @@ public class MeasurePointsService {
         return measurePointsRepository.findByLatitudeAndLongitude(latitud, longitud);
     }
 
-    public List<MeasurePointsEntity> getPointsLessThan50(double lat, double lon) {
+    public List<DistancePointsDTO> getPointsLessThan50(double lat, double lon) {
         MeasurePointsEntity point = measurePointsRepository.findByLatitudeAndLongitude(lat,lon)
                 .orElseThrow(() -> new RuntimeException("No se encontró el punto con esas coordenadas"));
         if (point.getSensorType().equals("Temperatura")){

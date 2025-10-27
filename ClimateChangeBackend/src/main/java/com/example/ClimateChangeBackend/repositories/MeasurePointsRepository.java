@@ -1,5 +1,6 @@
 package com.example.ClimateChangeBackend.repositories;
 
+import com.example.ClimateChangeBackend.dtos.DistancePointsDTO;
 import com.example.ClimateChangeBackend.dtos.PointVariationDTO;
 import com.example.ClimateChangeBackend.dtos.PointWithoutGeorefDTO;
 import com.example.ClimateChangeBackend.entities.MeasurePointsEntity;
@@ -16,5 +17,5 @@ public interface MeasurePointsRepository {
     List<PointWithoutGeorefDTO> findPointsWithoutGeoreference();
     Optional<MeasurePointsEntity> findByLatitudeAndLongitude(double lat, double lon);
 
-    List<MeasurePointsEntity> getPointsLessThan50ByLatitudeAndLongitude(double latitude, double longitude);
+    List<DistancePointsDTO> getPointsLessThan50ByLatitudeAndLongitude(double latitude, double longitude);
 }

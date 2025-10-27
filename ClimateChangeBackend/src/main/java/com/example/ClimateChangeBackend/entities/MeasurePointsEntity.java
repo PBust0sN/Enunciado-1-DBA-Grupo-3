@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class MeasurePointsEntity {
 
     private Long idMeasurePoints;
-    private Long latitud;
-    private Long longitud;
+    private Double latitud;
+    private Double longitud;
     private String sensorType;
 }

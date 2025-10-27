@@ -1,5 +1,6 @@
 package com.example.ClimateChangeBackend.repositories;
 
+import com.example.ClimateChangeBackend.dtos.DistancePointsDTO;
 import com.example.ClimateChangeBackend.dtos.PointVariationDTO;
 import com.example.ClimateChangeBackend.dtos.PointWithoutGeorefDTO;
 import com.example.ClimateChangeBackend.entities.MeasurePointsEntity;
@@ -66,8 +67,8 @@ public class MeasurePointsRepositoryImp implements MeasurePointsRepository {
                                 sql,
                                 new String[] { "idMeasurePoints" }
                         );
-                        ps.setLong(1, measurePointsEntity.getLatitud());
-                        ps.setLong(2, measurePointsEntity.getLongitud());
+                        ps.setDouble(1, measurePointsEntity.getLatitud());
+                        ps.setDouble(2, measurePointsEntity.getLongitud());
                         ps.setString(3, measurePointsEntity.getSensorType());
                         return ps;
                     },
@@ -151,37 +152,50 @@ public class MeasurePointsRepositoryImp implements MeasurePointsRepository {
     }
 
     @Override
-    public List<MeasurePointsEntity> getPointsLessThan50ByLatitudeAndLongitude(double latitude, double longitude){
-        String sql = """ 
-                    SELECT co2mp.id_measure_points,
-                    co2mp.latitud,
-                    co2mp.longitud,
-                    co2mp.sensor_type
-                    FROM measure_points AS mp
-                    JOIN measure_points AS co2mp
-                    ON co2mp.sensor_type = 'Emisiones de CO2'
-                    WHERE mp.sensor_type = 'Temperatura'
-                      AND mp.latitud = ?
-                      AND mp.longitud = ?
-                      AND (
-                            6371 * 2 * ASIN(
-                                SQRT(
-                                    POWER(SIN(RADIANS(co2mp.latitud - mp.latitud) / 2), 2) +
-                                    COS(RADIANS(mp.latitud)) * COS(RADIANS(co2mp.latitud)) *
-                                    POWER(SIN(RADIANS(co2mp.longitud - mp.longitud) / 2), 2)
-                                )
-                            )
-                        ) < 50;
-                    """;
-        try{
-            List<MeasurePointsEntity> measurePointsEntity = jdbcTemplate.query(
+    public List<DistancePointsDTO> getPointsLessThan50ByLatitudeAndLongitude(double latitude, double longitude) {
+        String sql = """
+            SELECT 
+                mp.id_measure_points AS tempId,
+                mp.latitud AS tempLatitud,
+                mp.longitud AS tempLongitud,
+                mp.sensor_type AS tempSensorType,
+                co2mp.id_measure_points AS co2Id,
+                co2mp.latitud AS co2Latitud,
+                co2mp.longitud AS co2Longitud,
+                co2mp.sensor_type AS co2SensorType,
+                (6371 * 2 * ASIN(
+                    SQRT(
+                        POWER(SIN(RADIANS(co2mp.latitud - mp.latitud) / 2), 2) +
+                        COS(RADIANS(mp.latitud)) * COS(RADIANS(co2mp.latitud)) *
+                        POWER(SIN(RADIANS(co2mp.longitud - mp.longitud) / 2), 2)
+                    )
+                )) AS distanceKm
+            FROM measure_points AS mp
+            JOIN measure_points AS co2mp
+              ON co2mp.sensor_type = 'Emisiones de CO2'
+            WHERE mp.sensor_type = 'Temperatura'
+              AND mp.latitud = ?
+              AND mp.longitud = ?
+              AND (
+                  6371 * 2 * ASIN(
+                      SQRT(
+                          POWER(SIN(RADIANS(co2mp.latitud - mp.latitud) / 2), 2) +
+                          COS(RADIANS(mp.latitud)) * COS(RADIANS(co2mp.latitud)) *
+                          POWER(SIN(RADIANS(co2mp.longitud - mp.longitud) / 2), 2)
+                      )
+                  )
+              ) < 50
+            ORDER BY distanceKm;
+        """;
+
+        try {
+            return jdbcTemplate.query(
                     sql,
-                    new BeanPropertyRowMapper<>(MeasurePointsEntity.class),
+                    new BeanPropertyRowMapper<>(DistancePointsDTO.class),
                     latitude,
                     longitude
             );
-            return measurePointsEntity;
-        }catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             return List.of();
         }
     }
