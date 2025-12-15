@@ -1,4 +1,4 @@
-#Instrucciones de clonación
+# Instrucciones de clonación
 
 1. Copiar el HTTP o SSH del repositorio.
 
@@ -9,7 +9,7 @@ git clone <HTTP o SSH>
 ```
 
 
-#Instrucciones de configuración
+# Instrucciones de configuración
 
 1. Crear base de datos en PostgreSQL.
 
@@ -29,7 +29,7 @@ git clone <HTTP o SSH>
     - Ubicación del archivo: `src/main/java/resources/loadData.sql`
 
 
-#Instrucciones de ejecución
+# Instrucciones de ejecución
 
 1. Ejecutar la aplicación desde Intellij.
 
