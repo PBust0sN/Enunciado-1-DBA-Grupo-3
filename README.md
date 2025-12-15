@@ -22,13 +22,21 @@ git clone <HTTP o SSH>
         - Para obtener JWT secreto seguro, generar uno [aquí](https://jwtsecrets.com/#generator) de 512 bits.
 
 
-3. Ejecutar dbCreate.sql en una query desde PostgreSQL para crear las tablas necesarias en la base de datos.
-    - Ubicación del archivo: `src/main/java/resources/dbCreate.sql`
+3. Crear tablas y cargar datos, aqui existen dos opciones
+    3.1 Crear y cargar a mano mediante dbCreate.sql y loadData.sql
 
-4. Ejecutar loadData.sql en una query desde PostgreSQL para poblar las tablas.
-    - Ubicación del archivo: `src/main/java/resources/loadData.sql`
+    3.1.1  Ejecutar dbCreate.sql en una query desde PostgreSQL para crear las tablas necesarias en la base de datos.
+        - Ubicación del archivo: `ClimateChangeBackend/src/main/java/resources/dbCreate.sql`
 
+    3.1.2. Ejecutar loadData.sql en una query desde PostgreSQL para poblar las tablas.
+        - Ubicación del archivo: `ClimateChangeBackend/src/main/java/resources/loadData.sql`
 
+    3.2 Hacer restore del archivo backup
+
+   3.2.1 Abrir pgadmin y hacer click derecho en la base creada y hacer click en restore
+
+   3.2.2 Abir en el apartado de filename el .backup que se encuentra en al raiz del repositorio `dbbackup.backup`
+   
 # Instrucciones de ejecución
 
 1. Ejecutar la aplicación desde Intellij.
